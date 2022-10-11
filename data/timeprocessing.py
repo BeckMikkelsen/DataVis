@@ -3,13 +3,15 @@ import pandas as pd
 import numpy as np
 from shapely.geometry import Point, Polygon, MultiPolygon
 import matplotlib.pyplot as plt
+import json
 
 # Load data
 bikedata = pd.read_csv('data/datastubs/testbikedata.csv')
 taxidata = pd.read_csv('data/datastubs/testtaxidata.csv')
 zonedata = pd.read_csv('data/zones/relevant_zones/relevant_zones.csv') #len of zonedata is 113
-zonedata = zonedata[['LocationID']]
 
+zonedata = zonedata.sort_values(by=['LocationID']).reset_index()
+print(zonedata)
 # Bike trip matrix
 bike_trip_avg = np.zeros((113,113))
 
@@ -19,14 +21,19 @@ for i in range (0,len(zonedata)):
         if len(df) !=0:
             bike_trip_avg[i,j] = df['tripduration'].mean()
 
+df_bike = pd.DataFrame(bike_trip_avg)
+json_bike = df_bike.to_json()
+with open("bike_json.json", "w") as outfile:
+    outfile.write(json_bike)
 
 # Taxi trip matrix
-taxi_trip_avg = np.zeros((113,113))
+# taxi_trip_avg = np.zeros((113,113))
 
-for i in range (0,len(zonedata)):
-    for j in range (0,len(zonedata)):
-        df = taxidata.loc[(taxidata['PULocationID'] == zonedata.at[i, 'LocationID']) & (taxidata['DOLocationID'] == zonedata.at[j, 'LocationID'])]
-        if len(df) !=0:
-            taxi_trip_avg[i,j] = df['tripduration'].mean()
+# for i in range (0,len(zonedata)):
+#     for j in range (0,len(zonedata)):
+#         df = taxidata.loc[(taxidata['PULocationID'] == zonedata.at[i, 'LocationID']) & (taxidata['DOLocationID'] == zonedata.at[j, 'LocationID'])]
+#         if len(df) !=0:
+#             taxi_trip_avg[i,j] = df['tripduration'].mean()
 
-    print(taxi_trip_avg[i])
+
+    #print(taxi_trip_avg[i])
