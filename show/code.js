@@ -5,6 +5,10 @@ var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
+
+let selected;
+
+
 //L.geoJson(statesData).addTo(map);
 
 var geojsonFeature = {
@@ -154,10 +158,8 @@ function style(feature) {
     };
 }
 
-function highlightFeature(e) {
-    var layer = e.target;
-
-    layer.setStyle({
+function highlightFeature(selected) {
+    selected.setStyle({
         weight: 5,
         color: '#666',
         dashArray: '',
@@ -165,20 +167,24 @@ function highlightFeature(e) {
     });
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
+         selected.bringToFront();
     }
 }
 //L.geoJson(geojsonFeature, {style: style}).addTo(map);
 
-function resetHighlight(e) {
-    geojson.resetStyle(e.target);
-}
 
 function onEachFeature(feature, layer) {
-    layer.on({
-        click: highlightFeature
-        //click: resetHighlight,
+
+    layer.on('click',function(e) {
+        if (selected) {
+            geojson.resetStyle(selected)
+        }
+
+        selected = e.target;
+
+        highlightFeature(selected);
     });
+    console.log(selected)
 }
 
 geojson = L.geoJson(geojsonFeature, {
