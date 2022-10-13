@@ -13134,8 +13134,14 @@ let bike_json = {
 console.log(bike_json[0][0])
 
 function getColor(d) {
-    return d > 0 ? '#feb24c' :
-    d > 0.0000  ;
+    return d > 1400 ? '#800026' :
+           d > 1200  ? '#BD0026' :
+           d > 1000  ? '#E31A1C' :
+           d > 800  ? '#FC4E2A' :
+           d > 600   ? '#FD8D3C' :
+           d > 400   ? '#FEB24C' :
+           d > 200   ? '#FED976' :
+                      'grey';
 }
 
 
@@ -13164,7 +13170,7 @@ function highlightFeature(selected) {
 }
 //L.geoJson(geojsonFeature, {style: style}).addTo(map);
 
-function time_to_selected(selected) {
+function time_from_selected(selected) {
     let loc_id = selected.feature.properties.location_id
     let index
 
@@ -13192,14 +13198,17 @@ function onEachFeature(feature, layer) {
             selected = emptySelect
             return
         } 
-        geojson.eachLayer(function(layer){layer.setStyle({fillColor: 'blue'})})
+        
         
         selected = e.target;
 
         highlightFeature(selected);
         //console.log(feature)
+        let count =0
+        let time_column = time_from_selected(selected)
+        geojson.eachLayer(function(layer){layer.setStyle({fillColor: getColor(time_column[count])});count++})
+        highlightFeature(selected);
 
-        let bongo = time_to_selected(selected)
         // geojsonFeature.features.forEach(f => {
         //     console.log(f)
         
