@@ -11,7 +11,6 @@ taxidata = pd.read_csv('data/datastubs/testtaxidata.csv')
 zonedata = pd.read_csv('data/zones/relevant_zones/relevant_zones.csv') #len of zonedata is 113
 
 zonedata = zonedata.sort_values(by=['LocationID']).reset_index()
-print(zonedata)
 # Bike trip matrix
 bike_trip_avg = np.zeros((113,113))
 
