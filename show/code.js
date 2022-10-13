@@ -6,7 +6,7 @@ let tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-let selected;
+let selected, emptySelect;
 
 
 //L.geoJson(statesData).addTo(map);
@@ -13186,8 +13186,14 @@ function onEachFeature(feature, layer) {
         if (selected) {
             geojson.resetStyle(selected)
         }
-
+        if (selected == e.target){
+            geojson.resetStyle(e.target)
+            geojson.eachLayer(function(layer){geojson.resetStyle(layer)})
+            selected = emptySelect
+            return
+        } 
         geojson.eachLayer(function(layer){layer.setStyle({fillColor: 'blue'})})
+        
         selected = e.target;
 
         highlightFeature(selected);
@@ -13198,6 +13204,7 @@ function onEachFeature(feature, layer) {
         //     console.log(f)
         
         // });
+        
     });
     
 
