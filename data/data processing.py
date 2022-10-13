@@ -3,7 +3,7 @@ import numpy as np
 from shapely.geometry import Point, Polygon, MultiPolygon
 import matplotlib.pyplot as plt
 from datetime import datetime
-nrows = 1000
+nrows = 50000
 
 #bikedata
 bikedata = pd.read_csv('data/citibike/202101-citibike-tripdata.csv',nrows=nrows)
