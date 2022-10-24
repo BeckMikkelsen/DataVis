@@ -25,14 +25,16 @@ json_bike = df_bike.to_json()
 with open("bike_json.json", "w") as outfile:
     outfile.write(json_bike)
 
-# Taxi trip matrix
-# taxi_trip_avg = np.zeros((113,113))
+taxi_trip_avg = np.zeros((113,113))
 
-# for i in range (0,len(zonedata)):
-#     for j in range (0,len(zonedata)):
-#         df = taxidata.loc[(taxidata['PULocationID'] == zonedata.at[i, 'LocationID']) & (taxidata['DOLocationID'] == zonedata.at[j, 'LocationID'])]
-#         if len(df) !=0:
-#             taxi_trip_avg[i,j] = df['tripduration'].mean()
+for i in range (0,len(zonedata)):
+    for j in range (0,len(zonedata)):
+        df = taxidata.loc[(taxidata['PULocationID'] == zonedata.at[i, 'LocationID']) & (taxidata['DOLocationID'] == zonedata.at[j, 'LocationID'])]
+        if len(df) !=0:
+            taxi_trip_avg[i,j] = df['tripduration'].mean()
 
 
-    #print(taxi_trip_avg[i])
+df_taxi = pd.DataFrame(taxi_trip_avg)
+json_taxi = df_taxi.to_json()
+with open("taxi_json.json", "w") as outfile:
+    outfile.write(json_taxi)

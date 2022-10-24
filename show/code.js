@@ -12,16 +12,18 @@ let bikezones =[4, 7, 8, 12, 13, 17, 24, 25, 33, 34, 36, 37, 40, 41, 42, 43, 45,
  
 
 function getColor(d) {
-    return d > 1400 ? '#800026' :
-           d > 1200  ? '#BD0026' :
-           d > 1000  ? '#E31A1C' :
-           d > 800  ? '#FC4E2A' :
-           d > 600   ? '#FD8D3C' :
-           d > 400   ? '#FEB24C' :
-           d > 200   ? '#FED976' :
-                      'grey';
+    return d > 1000 ? '#67001f' :
+    d > 800 ? '#b2182b' :
+    d > 600? '#d6604d' :
+    d > 400 ? '#f4a582' :
+    d > 200 ? '#fddbc7' :
+    d > 0 ? '#f7f7f7' :
+    d > -200 ? '#d1e5f0' :
+    d > -400 ? '#92c5de' :
+    d > -600 ? '#4393c3' :
+    d > -800 ? '#2166ac' :
+    '#053061' 
 }
-
 
 function style(feature) {
     return {
@@ -48,7 +50,7 @@ function highlightFeature(selected) {
 }
 //L.geoJson(geojsonFeature, {style: style}).addTo(map);
 
-function time_from_selected(selected, bike_json) {
+function time_from_selected(selected, data_json) {
     let loc_id = selected.feature.properties.location_id
     let index
 
@@ -59,40 +61,43 @@ function time_from_selected(selected, bike_json) {
         }
     }
     //console.log(selected)
-    return bike_json[index]
+    return data_json[index]
 
 }
 
 function onEachFeature(feature, layer) {
     // Get the
     fetch('../bike_json.json').then(bike_json => bike_json.json()).then(bike_json => {
+        fetch('../taxi_json.json').then(taxi_json => taxi_json.json()).then(taxi_json => {
 
-    layer.on('click',function(e) {
-        if (selected) {
-            geojson.resetStyle(selected)
-        }
-        if (selected == e.target){
-            geojson.resetStyle(e.target)
-            geojson.eachLayer(function(layer){geojson.resetStyle(layer)})
-            selected = emptySelect
-            return
-        } 
-        
-        selected = e.target;
+        layer.on('click',function(e) {
+            if (selected) {
+                geojson.resetStyle(selected)
+            }
+            if (selected == e.target){
+                geojson.resetStyle(e.target)
+                geojson.eachLayer(function(layer){geojson.resetStyle(layer)})
+                selected = emptySelect
+                return
+            } 
+            
+            selected = e.target;
 
-        highlightFeature(selected);
-        //console.log(feature)
-        let count =0
-        let time_column = time_from_selected(selected, bike_json)
-        geojson.eachLayer(function(layer){layer.setStyle({fillColor: getColor(time_column[count])});count++})
-        highlightFeature(selected);
+            highlightFeature(selected);
+            let count =0
+            let time_column_bike = time_from_selected(selected, bike_json)
+            let time_column_taxi = time_from_selected(selected, taxi_json)
+            
+            geojson.eachLayer(function(layer){layer.setStyle({fillColor: getColor(time_column_bike[count] - time_column_taxi[count])});count++})
+            highlightFeature(selected);
 
-        // geojsonFeature.features.forEach(f => {
-        //     console.log(f)
+            // geojsonFeature.features.forEach(f => {
+            //     console.log(f)
+            
+            // });
         
-        // });
-        
-    });
+        })
+    })
 })
     
 
