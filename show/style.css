@@ -1,4 +1,23 @@
 #map {
+    display: flex;
     height: 75%;
     width: 50%;
+    margin: 5px;
 }
+
+.flex-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 10px;
+}
+
+#dataviz {
+    display: flex;
+    height: 500;
+    width: 450;
+    padding: 5px;
+}
+
