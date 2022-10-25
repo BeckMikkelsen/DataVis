@@ -1,7 +1,7 @@
 #map {
     display: flex;
-    height: 75%;
-    width: 50%;
+    height: 55%;
+    width: 20%;
     margin: 5px;
 }
 
@@ -16,8 +16,9 @@
 
 #dataviz {
     display: flex;
-    height: 500;
-    width: 450;
-    padding: 5px;
+}
+
+.bar {
+    fill:blueviolet;
 }
 
