@@ -30,10 +30,7 @@ def create_summer_bike_data():
         else:
             pd.read_csv(f'data/citibike/2021{i}-citibike-tripdata.csv',usecols=['started_at','ended_at','start_lat','start_lng','end_lat','end_lng']).to_csv('data/summer_bike_data.csv',mode='a',index=False, header=False)
         
-def logic(index):
-    if index % 3 == 0:
-       return True
-    return False
+
 
 
 def create_summer_taxi_data():
@@ -44,5 +41,5 @@ def create_summer_taxi_data():
             bongo.to_csv('data/taxi/summertaxi.csv',mode='a', index=False,header=False)
 
 
-create_summer_taxi_data()
+#create_summer_taxi_data()
 

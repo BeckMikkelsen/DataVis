@@ -1,3 +1,6 @@
+body {
+    font-family: Arial;
+}
 .overview {
     height: 100%;
     width: 35%;
@@ -19,9 +22,9 @@
     flex-wrap: wrap;
 }
 
-.datails {
-    height: 100%;
-    width: 100%;
+.details {
+    height:100%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -32,6 +35,6 @@
 }
 
 .bar {
-    fill:blueviolet;
+    fill:gray;
 }
 
