@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 from shapely.geometry import Point, Polygon, MultiPolygon
 import matplotlib.pyplot as plt
-import json
 
 # Load data
 bikedata = pd.read_csv('data/datastubs/testbikedata.csv')
