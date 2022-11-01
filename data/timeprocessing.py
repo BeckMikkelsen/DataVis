@@ -7,11 +7,11 @@ import matplotlib.pyplot as plt
 # Load data
 bikedata = pd.read_csv('data/datastubs/testbikedata.csv')
 taxidata = pd.read_csv('data/datastubs/testtaxidata.csv')
-zonedata = pd.read_csv('data/zones/relevant_zones/relevant_zones.csv') #len of zonedata is 113
+zonedata = pd.read_csv('data/zones/relevant_zones/relevant_zones.csv') 
 
 zonedata = zonedata.sort_values(by=['LocationID']).reset_index()
 # Bike trip matrix
-bike_trip_avg = np.zeros((113,113))
+bike_trip_avg = np.zeros(len(zonedata),len(zonedata))
 
 for i in range (0,len(zonedata)):
     for j in range (0,len(zonedata)):
@@ -24,7 +24,7 @@ json_bike = df_bike.to_json()
 with open("bike_json.json", "w") as outfile:
     outfile.write(json_bike)
 
-taxi_trip_avg = np.zeros((113,113))
+taxi_trip_avg = np.zeros(len(zonedata),len(zonedata))
 
 for i in range (0,len(zonedata)):
     for j in range (0,len(zonedata)):
