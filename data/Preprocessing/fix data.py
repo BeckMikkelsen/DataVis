@@ -1,4 +1,3 @@
-from ast import For
 import pandas as pd
 import numpy as np
 from shapely.geometry import Point, Polygon, MultiPolygon
