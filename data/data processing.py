@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 #bikedata
-bikedata = pd.read_csv('data/citibike/202107-citibike-tripdata.csv',nrows=5000,usecols=['started_at','ended_at','start_station_name','end_station_name','start_lat','start_lng','end_lat','end_lng'])
+bikedata = pd.read_csv('data/citibike/202107-citibike-tripdata.csv',usecols=['started_at','ended_at','start_station_name','end_station_name','start_lat','start_lng','end_lat','end_lng'])
 
 #zone data
 zonedataraw = pd.read_csv('data/zones/taxi_zones.csv',)
