@@ -100,35 +100,23 @@ function onEachFeature(feature, layer) {
             geojson.eachLayer(function(layer){layer.setStyle({fillColor: getColor(bikeColumn[count],taxiColumn[count])});count++})
             highlightFeature(selected);
 
+
             locID = selected.feature.properties.location_id
-
-
-            let haha2 = [4]
-
             
-            //vegaEmbed('#dataviz', spec)
+            spec.transform[0] = {"filter": "datum.start_zoneID == "+ locID}
 
-        //         var changeSet = vega
-        //         .changeset()
-        //         .insert(valueGenerator())
-        //         .remove(function (t) {
-        //             return t.x < minimumX;
-        //         });
-        //         res.view.change('table', changeSet).run();
-        // })
-            
-            
+            //console.log(spec.transform)
+
+            vegaEmbed('#dataviz', spec)
+
             // vegaEmbed('#dataviz', spec).then(function (res) {
-            //       var changeSet = vega
-            //         .changeset()
-            //         .insert(haha2)
-            //       res.view.change('data1', changeSet).run();
-              
-            //   });
-            // geojsonFeature.features.forEach(f => {
-            //     console.log(f)
+            //     var locID = vega
+            //     .changeset()
+            //     .insert(4)
+            //     res.view.signal('locID')
+            // })
             
-            // });
+
         
         })
     })
