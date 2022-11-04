@@ -40,6 +40,33 @@ def count_instances_of_trip_bike():
     with open('biketrips.json', "w") as outfile:
         outfile.write(json_biketrip)
 
-count_instances_of_trip_bike()
-# print(len(pd.read_csv('data/finaldata/bikedata_07_ID.csv')))
 
+def count_instances_sample():
+    #Count taxi
+    taxi_trip_amount = np.zeros((len(relevant_zones),len(relevant_zones)))
+    td = pd.read_csv('data/sample data/taxisample.csv')
+    for i,pickup  in enumerate(relevant_zones):
+        for j,dropoff in enumerate(relevant_zones):
+            count = 0
+            count = count + len(td.loc[(td['PULocationID']== pickup) & (td['DOLocationID'] == dropoff)])
+            taxi_trip_amount[i,j] += count
+    json_taxitrip = pd.DataFrame(taxi_trip_amount).to_json()
+    with open('taxitripssample.json', "w") as outfile:
+        outfile.write(json_taxitrip)
+
+    #count bike
+    bike_trip_amount = np.zeros((len(relevant_zones),len(relevant_zones)))
+
+    bd= pd.read_csv('data/sample data/bikesample.csv')
+    for i,startzone  in enumerate(relevant_zones):
+        for j,endzone in enumerate(relevant_zones):
+            count = 0
+            count = count + len(bd.loc[(bd['start_zoneID']== startzone) & (bd['end_zoneID'] == endzone)])
+            bike_trip_amount[i,j] += count
+    
+    json_biketrip = pd.DataFrame(bike_trip_amount).to_json()
+    with open('biketripssample.json', "w") as outfile:
+        outfile.write(json_biketrip)
+
+
+count_instances_sample()
