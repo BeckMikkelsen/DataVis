@@ -16,8 +16,8 @@ let tiles = L.tileLayer('https://{s}.tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?
 let selected, emptySelect;
 
 let relevantZones = [4, 7, 8, 12, 13, 17, 24, 25, 33, 34, 36, 37, 40, 41, 42, 43, 45, 47, 48, 49, 50, 52, 54, 59, 60, 61, 62, 65, 66, 68, 69, 74, 75, 79, 80, 87, 88, 90, 94, 97, 100, 106, 107, 112, 113, 114, 116, 119, 120, 125, 126, 127, 128, 136, 137, 140, 141, 142, 143, 144, 145, 146, 147, 148, 151, 152, 158, 159, 161, 162, 163, 164, 166, 167, 168, 169, 170, 177, 179, 181, 186, 188, 189, 190, 193, 194, 195, 198, 202, 209, 211, 217, 223, 224, 225, 226, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 243, 244, 246, 247, 249, 255, 256, 261, 262, 263]
-let high = 50
-let middle = 25
+let high = 0.05
+let middle = 0.01
 let low = 0
 
 
@@ -31,12 +31,14 @@ function getColor(bike, taxi) {
             (bike > middle && taxi > middle) ? '#af8e53' :
             (bike > low && taxi > middle)    ? '#e4d9ac' :
             (bike > middle && taxi > low)    ? '#cbb8d7' :
-            '#e8e8e8'
+            (bike > low && taxi > low)    ? '#e8e8e8' :
+
+            'black'
 }
 
 function style(feature) {
     return {
-        fillColor: '#e8e8e8',
+        fillColor: 'pink',
         weight: 1,
         opacity: 1,
         color: 'white',
@@ -60,21 +62,24 @@ function highlightFeature(selected) {
 
 function getSelectedData(selected, data_json) {
     let loc_id = selected.feature.properties.location_id
-    let index
 
-    for (let i=0; i < relevantZones.length; i++) {
-        if (relevantZones[i] == loc_id) {
-            return data_json[i]
-        }
-    }
-    //console.log(selected)
-    return data_json[index]
+    return data_json[getIndexOfLocID(loc_id)]
 
 }
 
+function getIndexOfLocID(locID) {
+    for (let i=0; i < relevantZones.length; i++) {
+        if (relevantZones[i] == locID) {
+            return i
+        }
+    }
+    return -1
+}
+
+
 function onEachFeature(feature, layer) {
-    biketripsPath = '../data/sampledata/biketripssample.json'
-    taxitrips_path = '../data/sampledata/taxitripssample.json'
+    biketripsPath = '../data/tripdata/biketrips.json'
+    taxitrips_path = '../data/tripdata/taxitrips.json'
     // Get the
     fetch(biketripsPath).then(bike_json => bike_json.json()).then(bike_json => {
         fetch(taxitrips_path).then(taxi_json => taxi_json.json()).then(taxi_json => {
@@ -91,13 +96,21 @@ function onEachFeature(feature, layer) {
             } 
             
             selected = e.target;
+            
+            locID = selected.feature.properties.location_id
+
+            index = getIndexOfLocID(locID)
 
             highlightFeature(selected);
             let count =0
             let bikeColumn = getSelectedData(selected, bike_json)
             let taxiColumn = getSelectedData(selected, taxi_json)
+            outgoingBike = bike_json.outgoing[index]
+            outgoingTaxi = taxi_json.outgoing[index]
+
+
             
-            geojson.eachLayer(function(layer){layer.setStyle({fillColor: getColor(bikeColumn[count],taxiColumn[count])});count++})
+            geojson.eachLayer(function(layer){layer.setStyle({fillColor: getColor(bikeColumn[count]/outgoingBike, taxiColumn[count]/outgoingTaxi)});count++})
             highlightFeature(selected);
 
             locID = selected.feature.properties.location_id
