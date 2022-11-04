@@ -15,30 +15,28 @@ let tiles = L.tileLayer('https://{s}.tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?
 
 let selected, emptySelect;
 
-
 let relevantZones = [4, 7, 8, 12, 13, 17, 24, 25, 33, 34, 36, 37, 40, 41, 42, 43, 45, 47, 48, 49, 50, 52, 54, 59, 60, 61, 62, 65, 66, 68, 69, 74, 75, 79, 80, 87, 88, 90, 94, 97, 100, 106, 107, 112, 113, 114, 116, 119, 120, 125, 126, 127, 128, 136, 137, 140, 141, 142, 143, 144, 145, 146, 147, 148, 151, 152, 158, 159, 161, 162, 163, 164, 166, 167, 168, 169, 170, 177, 179, 181, 186, 188, 189, 190, 193, 194, 195, 198, 202, 209, 211, 217, 223, 224, 225, 226, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 243, 244, 246, 247, 249, 255, 256, 261, 262, 263]
-let colorsZone = ['#543005','#8c510a','#bf812d','#dfc27d','#f6e8c3','#f5f5f5','#c7eae5','#80cdc1','#35978f','#01665e','#003c30']
-
+let high = 50
+let middle = 25
+let low = 0
 
 
 // TODO: create bivariate color scale
-function getColor(d) {
-    return d > 250 ? colorsZone[0] :
-    d > 200 ?  colorsZone[1]  :
-    d > 150?   colorsZone[2]  :
-    d > 100 ?  colorsZone[3]  :
-    d > 50 ?  colorsZone[4]  :
-    d > 0 ?    colorsZone[5]  :
-    d > -50 ? colorsZone[6]  :
-    d > -100 ? colorsZone[7]  :
-    d > -150 ? colorsZone[8]  :
-    d > -200 ? colorsZone[9]  :
-     colorsZone[10]
+function getColor(bike, taxi) {
+    return  bike > high && taxi > high       ? '#804d36' :
+            (bike > middle && taxi > high)   ? '#af8e53' :
+            (bike > low && taxi > high)      ? '#c8b35a' :
+            (bike > high && taxi > middle)   ? '#976b82' :
+            (bike > high && taxi > low)      ? '#9972af' :
+            (bike > middle && taxi > middle) ? '#af8e53' :
+            (bike > low && taxi > middle)    ? '#e4d9ac' :
+            (bike > middle && taxi > low)    ? '#cbb8d7' :
+            '#e8e8e8'
 }
 
 function style(feature) {
     return {
-        fillColor: 'grey',
+        fillColor: '#e8e8e8',
         weight: 1,
         opacity: 1,
         color: 'white',
@@ -51,8 +49,7 @@ function highlightFeature(selected) {
         weight: 5,
         color: '#666',
         dashArray: '',
-        fillOpacity: 0.7,
-        fillColor: 'red'
+        fillOpacity: 0.8,
     });
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
@@ -67,8 +64,7 @@ function getSelectedData(selected, data_json) {
 
     for (let i=0; i < relevantZones.length; i++) {
         if (relevantZones[i] == loc_id) {
-            index = i
-            break
+            return data_json[i]
         }
     }
     //console.log(selected)
@@ -77,8 +73,8 @@ function getSelectedData(selected, data_json) {
 }
 
 function onEachFeature(feature, layer) {
-    biketripsPath = '../data/tripdata/biketrips.json'
-    taxitrips_path = '../data/tripdata/taxitrips.json'
+    biketripsPath = '../data/sampledata/biketripssample.json'
+    taxitrips_path = '../data/sampledata/taxitripssample.json'
     // Get the
     fetch(biketripsPath).then(bike_json => bike_json.json()).then(bike_json => {
         fetch(taxitrips_path).then(taxi_json => taxi_json.json()).then(taxi_json => {
@@ -101,7 +97,7 @@ function onEachFeature(feature, layer) {
             let bikeColumn = getSelectedData(selected, bike_json)
             let taxiColumn = getSelectedData(selected, taxi_json)
             
-            geojson.eachLayer(function(layer){layer.setStyle({fillColor: getColor(bikeColumn[count] - taxiColumn[count])});count++})
+            geojson.eachLayer(function(layer){layer.setStyle({fillColor: getColor(bikeColumn[count],taxiColumn[count])});count++})
             highlightFeature(selected);
 
             locID = selected.feature.properties.location_id
