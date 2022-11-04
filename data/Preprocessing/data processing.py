@@ -94,7 +94,8 @@ def get_zone_from_lat_lng(bikedata):
 bikedata.insert(0, "start_zoneID",bikestartzonearr, True)
 bikedata.insert(1, "end_zoneID",bikeendzonearr, True)
 
-
+# Below line to remove rows with zones outside taxizones
+#bikedata = bikedata[bikedata.start_zoneID != -1 or bikedata.end_zoneID != -1]
 
 #create a small sample of bike data for testing
 bikedata.to_csv('data/datastubs/testbikedata.csv',index=False)

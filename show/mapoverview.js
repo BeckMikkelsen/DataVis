@@ -13,8 +13,8 @@ let tiles = L.tileLayer('https://{s}.tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?
 	accessToken: '1Hsl3ZsFhaMm2rkHgynrVDUZQjgoqe5Tk40QdK6mThib3iS8A6kPm3BYVxH8GnsW'
 }).addTo(map);
 
-
 let selected, emptySelect;
+
 
 let relevantZones = [4, 7, 8, 12, 13, 17, 24, 25, 33, 34, 36, 37, 40, 41, 42, 43, 45, 47, 48, 49, 50, 52, 54, 59, 60, 61, 62, 65, 66, 68, 69, 74, 75, 79, 80, 87, 88, 90, 94, 97, 100, 106, 107, 112, 113, 114, 116, 119, 120, 125, 126, 127, 128, 136, 137, 140, 141, 142, 143, 144, 145, 146, 147, 148, 151, 152, 158, 159, 161, 162, 163, 164, 166, 167, 168, 169, 170, 177, 179, 181, 186, 188, 189, 190, 193, 194, 195, 198, 202, 209, 211, 217, 223, 224, 225, 226, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 243, 244, 246, 247, 249, 255, 256, 261, 262, 263]
 let colorsZone = ['#543005','#8c510a','#bf812d','#dfc27d','#f6e8c3','#f5f5f5','#c7eae5','#80cdc1','#35978f','#01665e','#003c30']
@@ -104,6 +104,31 @@ function onEachFeature(feature, layer) {
             geojson.eachLayer(function(layer){layer.setStyle({fillColor: getColor(bikeColumn[count] - taxiColumn[count])});count++})
             highlightFeature(selected);
 
+            locID = selected.feature.properties.location_id
+
+
+            let haha2 = [4]
+
+            
+            //vegaEmbed('#dataviz', spec)
+
+        //         var changeSet = vega
+        //         .changeset()
+        //         .insert(valueGenerator())
+        //         .remove(function (t) {
+        //             return t.x < minimumX;
+        //         });
+        //         res.view.change('table', changeSet).run();
+        // })
+            
+            
+            // vegaEmbed('#dataviz', spec).then(function (res) {
+            //       var changeSet = vega
+            //         .changeset()
+            //         .insert(haha2)
+            //       res.view.change('data1', changeSet).run();
+              
+            //   });
             // geojsonFeature.features.forEach(f => {
             //     console.log(f)
             
