@@ -9,28 +9,22 @@
 // // view.addEventListener('click', function(event, item) {
 // //   console.log('CLICK', event, item);
 // // });
-// // let spec = {
-// //   "width": 600,
-// //   "height": 200,
-// //   "padding": 5,
+
+let spec = {
+    "width": 600,
+    "height": 200,
+    "padding": 5,
   
-// //   "params": [
-// //     { "name": "locID", "value": 25,
-// //       "bind": {"input": "range", "min": 1, "max": 100, "step": 1} }],
-  
-// //   "datasets" : {
-// //     "data1": {"name": "myData", "url": "http://0.0.0.0:8000/data/sampledata/bikesample.csv"},
-// //     "data2": {"name": "locID"}
-// //   },
-// //   "data": {"name":"data1", },
-// //   "transform": [{"filter": "datum.start_zoneID == locID"}],
-// //   "mark": "bar",
-// //   "encoding": {
-// //     "x": {"timeUnit": "day", "field": "started_at", "type": "ordinal",
-// //     title:"Amount each weekday"},
-// //     "y": {"aggregate": "count", "field": "end_zoneID"}
-// //   },
-// // }
+    "data": {"name": "myData", "url": "http://0.0.0.0:8000/data/sampledata/bikesample.csv"},
+    "transform": [{"filter": "datum.start_zoneID == locID"}],
+    "mark": "bar",
+    "encoding": {
+        "x": {"timeUnit": "day", "field": "started_at", "type": "ordinal",
+        title:"Amount each weekday"},
+        "y": {"aggregate": "count", "field": "end_zoneID"}
+    },
+}
+console.log(spec.transform)
 
 // const margin = {top: 30, right: 30, bottom: 70, left: 60},
 //     width = 560 - margin.left - margin.right,
