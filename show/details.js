@@ -21,7 +21,11 @@ let spec = {
     "encoding": {
         "x": {"timeUnit": "day", "field": "started_at", "type": "ordinal",
         title:"Amount each weekday"},
-        "y": {"aggregate": "count", "field": "end_zoneID"}
+        "y": {"aggregate": "count", "field": "end_zoneID"},
+        "color": {
+            "field": "Time",
+            "scale": {"range": ["#9972af"]}
+          }
     },
 }
 console.log(spec.transform)

@@ -1,4 +1,4 @@
-let map = L.map('map').setView([40.75698534549325, -73.97264966442157], 11);
+let map = L.map('map').setView([40.75698534549325, -73.96264966442157], 11);
 
 // let tiles = L.tileLayer.grayscale('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //     maxZoom: 19,
@@ -22,7 +22,7 @@ let low = 0
 
 
 // TODO: create bivariate color scale
-function getColor(bike, taxi) {
+function getBivariateColor(bike, taxi) {
     return  bike > high && taxi > high       ? '#804d36' :
             (bike > middle && taxi > high)   ? '#af8e53' :
             (bike > low && taxi > high)      ? '#c8b35a' :
@@ -31,9 +31,7 @@ function getColor(bike, taxi) {
             (bike > middle && taxi > middle) ? '#af8e53' :
             (bike > low && taxi > middle)    ? '#e4d9ac' :
             (bike > middle && taxi > low)    ? '#cbb8d7' :
-            (bike > low && taxi > low)    ? '#e8e8e8' :
-
-            'black'
+            '#e8e8e8' // if none of the above: (bike > low && taxi > low) 
 }
 
 function style(feature) {
@@ -110,7 +108,7 @@ function onEachFeature(feature, layer) {
 
 
             
-            geojson.eachLayer(function(layer){layer.setStyle({fillColor: getColor(bikeColumn[count]/outgoingBike, taxiColumn[count]/outgoingTaxi)});count++})
+            geojson.eachLayer(function(layer){layer.setStyle({fillColor: getBivariateColor(bikeColumn[count]/outgoingBike, taxiColumn[count]/outgoingTaxi)});count++})
             highlightFeature(selected);
 
 
