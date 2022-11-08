@@ -24,12 +24,15 @@
 
             <div class="overview"> 
                 <div id="map"></div>
-                <div class="inputvalues">
-                    <div class="inputbox">    Low <input  id="inputlow" type="text" name="low" value="0"></div>
-                    <div class="inputbox" > Middle<input id="inputmiddle" type="text" name="middle" value="0.025"></div>
-                    <div class="inputbox" >   High: <input id="inputhigh" type="text" name="high" value="0.05"></div>
+                <div class="recompiletools">
+                    <div class="inputvalues">
+                        <div class="inputbox">    <div class="inputname">Low</div> <input class="inputfield" id="inputlow" type="text" name="low" value="0"></div>
+                        <div class="inputbox" ><div class="inputname">Middle</div><input class="inputfield" id="inputmiddle" type="text" name="middle" value="0.025"></div>
+                        <div class="inputbox" >   <div class="inputname">High</div> <input class="inputfield" id="inputhigh" type="text" name="high" value="0.05"></div>
+                    </div>
                     <div class="but"> <button onclick="recompileMap()" id="recompilebutton">Recompile map</button> </div>
-                </div>
+            </div>
+           
             </div>
             <div class="details">
                 <div id="dataviz"></div>
