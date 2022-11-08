@@ -1,3 +1,8 @@
-Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
-1807,1878,2068,2195,2516,2161,1814
-64,73,102,117,86,86,51
+Weekdays,Taxi,Bike
+Monday,64,1807
+Tuesday,73,1878
+Wednesday,102,2068
+Thursday,117,2195
+Friday,86,2516
+Saturday,86,2161
+Sunday,51,1814

@@ -1,3 +1,8 @@
-Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
-4199,4177,4903,4932,5547,6150,4534
-2991,3423,3743,5145,6170,6906,4045
+Weekdays,Taxi,Bike
+Monday,2991,4199
+Tuesday,3423,4177
+Wednesday,3743,4903
+Thursday,5145,4932
+Friday,6170,5547
+Saturday,6906,6150
+Sunday,4045,4534

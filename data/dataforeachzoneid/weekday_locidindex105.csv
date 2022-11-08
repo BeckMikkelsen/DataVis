@@ -1,3 +1,8 @@
-Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
-1845,1907,2157,2072,2196,2001,1348
-15418,21116,21901,25046,20196,15197,8771
+Weekdays,Taxi,Bike
+Monday,15418,1845
+Tuesday,21116,1907
+Wednesday,21901,2157
+Thursday,25046,2072
+Friday,20196,2196
+Saturday,15197,2001
+Sunday,8771,1348
