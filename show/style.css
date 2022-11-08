@@ -64,14 +64,20 @@ h1{
     border-radius: 25px;
     display: flex;
     width: 250px;
+    margin: auto;
+    text-align: center;
+}
+.inputname {
+    text-align: center;
+    margin: auto;
+    margin-left: 10px;
+
 }
 
 .inputvalues {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: auto;
-    margin-top: 10px;
     border-radius: 25px;
 }
 
@@ -81,14 +87,20 @@ h1{
 }
 
 .but{
-    width: 50;
     display: flex;
 }
+
+#recompilebutton{
+ border-radius: 25px;
+ width: 100px;
+ margin-left: 25px;
+}
 .recompiletools{
-    background-color: blue;
     display: flex;
     width: 350px;
+    height: 100px;
     padding: 35px;
+    padding-top: 10px;
     margin: auto;
     border-radius: 25px;
     margin-top: 10px;
