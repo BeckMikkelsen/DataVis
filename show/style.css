@@ -1,11 +1,11 @@
 body{
-    background-color: #b5946e;
+    background-color: #d5c8b9;
     font-family: 'Courier New', Courier, monospace;
 }
 
 .view {
-    background-color: #fff8ef;
-    border: 2px solid #fff8ef ;
+    background-color: white;
+    /* border: 2px solid #fff8ef ; */
     padding: 50px;
     padding-top: 10px;
     border-radius: 25px;
