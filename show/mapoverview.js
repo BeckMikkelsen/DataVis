@@ -103,23 +103,86 @@ function onEachFeature(feature, layer) {
     // Get the
     fetch(biketripsPath).then(bike_json => bike_json.json()).then(bike_json => {
         fetch(taxitrips_path).then(taxi_json => taxi_json.json()).then(taxi_json => {
+            layer.on('click',function(e) {
+                if (selected) {
+                    geojson.resetStyle(selected)
+                }
+                if (selected == e.target){
+                    geojson.resetStyle(e.target)
+                    geojson.eachLayer(function(layer){geojson.resetStyle(layer)})
+                    selected = emptySelect
+                    return
+                } 
+                
+                high = document.getElementById("inputhigh").value;
+                middle =document.getElementById("inputmiddle").value; 
+                low = document.getElementById("inputlow").value;
 
-        layer.on('click',function(e) {
-            if (selected) {
-                geojson.resetStyle(selected)
-            }
-            if (selected == e.target){
-                geojson.resetStyle(e.target)
-                geojson.eachLayer(function(layer){geojson.resetStyle(layer)})
-                selected = emptySelect
-                return
-            } 
+                selected = e.target;
+                
+                locID = selected.feature.properties.location_id
+
+                index = getIndexOfLocID(locID)
+
+                highlightFeature(selected);
+                let count =0
+                let bikeColumn = getSelectedData(selected, bike_json)
+                let taxiColumn = getSelectedData(selected, taxi_json)
+                outgoingBike = bike_json.outgoing[index]
+                outgoingTaxi = taxi_json.outgoing[index]
+                
+                
+
+                geojson.eachLayer(function(layer){layer.setStyle({fillColor: getBivariateColor2(bikeColumn[count]/outgoingBike, taxiColumn[count]/outgoingTaxi)});count++})
+                highlightFeature(selected);
+
+
+                locID = selected.feature.properties.location_id
+
+                let spec = {
+                    "width": 600,
+                    "height": 200,
+                    "padding": 5,
+                
+                    "data": {"name": "myData", "url": "http://0.0.0.0:8000/data/dataforeachzoneid/weekday_locidindex" + getIndexOfLocID(locID) + ".csv"},
+
+                    "mark": "bar",
+                    "encoding": {
+                        "x": {"field": "Weekdays", "type": "ordinal",
+                        "title":"Amount each weekday", "sort": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+                    },
+                        "y": {"field": "Bike", "type": "quantitative"},
+                    },
+                }
+                
+
+                vegaEmbed('#dataviz', spec)
+
+                // vegaEmbed('#dataviz', spec).then(function (res) {
+                //     var locID = vega
+                //     .changeset()
+                //     .insert(4)
+                //     res.view.signal('locID')
+                // })
+                
+
+            
+                })
+            })
+        })
+    }
+
+function recompileMap(){
+    console.log("hallo")
+    biketripsPath = '../data/tripdata/biketrips.json'
+    taxitrips_path = '../data/tripdata/taxitrips.json'
+    // Get the
+    fetch(biketripsPath).then(bike_json => bike_json.json()).then(bike_json => {
+        fetch(taxitrips_path).then(taxi_json => taxi_json.json()).then(taxi_json => {
             
             high = document.getElementById("inputhigh").value;
             middle =document.getElementById("inputmiddle").value; 
             low = document.getElementById("inputlow").value;
-
-            selected = e.target;
             
             locID = selected.feature.properties.location_id
 
@@ -133,50 +196,13 @@ function onEachFeature(feature, layer) {
             outgoingTaxi = taxi_json.outgoing[index]
             
             
+
             geojson.eachLayer(function(layer){layer.setStyle({fillColor: getBivariateColor2(bikeColumn[count]/outgoingBike, taxiColumn[count]/outgoingTaxi)});count++})
             highlightFeature(selected);
-
-
-            locID = selected.feature.properties.location_id
-
-            let spec = {
-                "width": 600,
-                "height": 200,
-                "padding": 5,
-              
-                "data": {"name": "myData", "url": "http://0.0.0.0:8000/data/dataforeachzoneid/weekday_locidindex" + getIndexOfLocID(locID) + ".csv"},
-
-                "mark": "bar",
-                "encoding": {
-                    "x": {"field": "Weekdays", "type": "ordinal",
-                    "title":"Amount each weekday", "sort": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-                },
-                    "y": {"field": "Bike", "type": "quantitative"},
-                },
-            }
-            
-            //spec.transform[0] = {"filter": "datum.start_zoneID == "+ locID}
-
-            //console.log(spec.transform)
-
-            vegaEmbed('#dataviz', spec)
-
-            // vegaEmbed('#dataviz', spec).then(function (res) {
-            //     var locID = vega
-            //     .changeset()
-            //     .insert(4)
-            //     res.view.signal('locID')
-            // })
-            
-
-        
-        })
+            })
     })
-})
-    
-
-
 }
+
 fetch('../data/geojson/Relevantzones.geojson').then(geojsonFeature => geojsonFeature.json()).then(geojsonFeature => {
 geojson = L.geoJson(geojsonFeature, {
     style: style,
