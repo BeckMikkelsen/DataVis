@@ -12,10 +12,9 @@ let spec = {
         "title":"Weekdays", "sort": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     },
         "y": {"field": {"repeat":"layer"}, "type": "quantitative", "title":"Amount"},
-        "color": {"datum": {"repeat":"layer"}, "title":"hej"},
+        "color": {"datum": {"repeat":"layer"}, "title":"Transportation type","scale": {"range":["#8b689f","#b6a352"]}},
         "xOffset": {"datum": {"repeat":"layer"}},
     },
 },
 "config": {"mark": {"invalid": null}}
 }
-
