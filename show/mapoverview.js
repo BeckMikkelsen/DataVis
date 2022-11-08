@@ -16,10 +16,11 @@ let tiles = L.tileLayer('https://{s}.tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?
 let selected, emptySelect;
 
 let relevantZones = [4, 7, 8, 12, 13, 17, 24, 25, 33, 34, 36, 37, 40, 41, 42, 43, 45, 47, 48, 49, 50, 52, 54, 59, 60, 61, 62, 65, 66, 68, 69, 74, 75, 79, 80, 87, 88, 90, 94, 97, 100, 106, 107, 112, 113, 114, 116, 119, 120, 125, 126, 127, 128, 136, 137, 140, 141, 142, 143, 144, 145, 146, 147, 148, 151, 152, 158, 159, 161, 162, 163, 164, 166, 167, 168, 169, 170, 177, 179, 181, 186, 188, 189, 190, 193, 194, 195, 198, 202, 209, 211, 217, 223, 224, 225, 226, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 243, 244, 246, 247, 249, 255, 256, 261, 262, 263]
-let high = 0.05
-let middle = 0.025
-let low = 0
+let high = document.getElementById("inputhigh").value;
+let middle =document.getElementById("inputmiddle").value; 
+let low = document.getElementById("inputlow").value;
 let bivariateColorArray =["#d3d3d3", "#cac4a8", "#c0b37e", "#b6a352", "#bbafc2", "#b2a29b", "#aa9473", "#a1874b", "#a38bb1", "#9c818d", "#947669", "#8c6b44", "#8b689f", "#85607f", "#7f585f", "#78503e"]
+console.log(high)
 
 // TODO: create bivariate color scale
 function getBivariateColor2(bike, taxi) {
@@ -32,11 +33,11 @@ function getBivariateColor2(bike, taxi) {
             bike > high                      ? bivariateColorArray[12] :
             (bike > middle && taxi > middle) ? bivariateColorArray[10] :
             (bike > low && taxi > middle)    ? bivariateColorArray[6] :
+            taxi > middle                    ? bivariateColorArray[2] :
             (bike > middle && taxi > low)    ? bivariateColorArray[9] :
             (bike < low && taxi < low)       ? bivariateColorArray[5]:
-            taxi > middle                    ? bivariateColorArray[2] :
-            taxi > low                       ? bivariateColorArray[1] :
             bike > middle                    ? bivariateColorArray[8] :
+            taxi > low                       ? bivariateColorArray[1] :
             bike > low                       ? bivariateColorArray[4] : 
             bivariateColorArray[0] // if none of the above
 }
@@ -92,7 +93,7 @@ function getIndexOfLocID(locID) {
             return i
         }
     }
-    return -1
+    return 0
 }
 
 
@@ -114,6 +115,10 @@ function onEachFeature(feature, layer) {
                 return
             } 
             
+            high = document.getElementById("inputhigh").value;
+            middle =document.getElementById("inputmiddle").value; 
+            low = document.getElementById("inputlow").value;
+
             selected = e.target;
             
             locID = selected.feature.properties.location_id
@@ -126,10 +131,9 @@ function onEachFeature(feature, layer) {
             let taxiColumn = getSelectedData(selected, taxi_json)
             outgoingBike = bike_json.outgoing[index]
             outgoingTaxi = taxi_json.outgoing[index]
-
-
             
-            geojson.eachLayer(function(layer){layer.setStyle({fillColor: getBivariateColor(bikeColumn[count]/outgoingBike, taxiColumn[count]/outgoingTaxi)});count++})
+            
+            geojson.eachLayer(function(layer){layer.setStyle({fillColor: getBivariateColor2(bikeColumn[count]/outgoingBike, taxiColumn[count]/outgoingTaxi)});count++})
             highlightFeature(selected);
 
 

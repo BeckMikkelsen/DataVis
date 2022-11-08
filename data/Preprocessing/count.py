@@ -35,7 +35,7 @@ def count_instances_of_trip_taxi(path ,out):
         outfile.write(json_taxitrip)
 
 
-count_instances_of_trip_taxi(path ='data/finaldata/taxi07.csv', out ='data/tripdata/taxitrips.json')
+# count_instances_of_trip_taxi(path ='data/finaldata/taxi07.csv', out ='data/tripdata/taxitrips.json')
 
 
 def count_instances_of_trip_bike(path,out):
@@ -59,7 +59,7 @@ def count_instances_of_trip_bike(path,out):
     with open(out, "w") as outfile:
         outfile.write(json_biketrip)
 
-count_instances_of_trip_bike(path = 'data/finaldata/bikedata_07_ID.csv', out ='data/tripdata/biketrips.json')
+# count_instances_of_trip_bike(path = 'data/finaldata/bikedata_07_ID.csv', out ='data/tripdata/biketrips.json')
 
 def count_instances_sample():
     #Count taxi

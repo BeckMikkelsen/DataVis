@@ -23,7 +23,7 @@ let spec = {
         title:"Amount each weekday"},
         "y": {"aggregate": "count", "field": "end_zoneID"},
         "color": {
-            "field": "Time",
+            "field": "started_at", "timeUnit": "day",
             "scale": {"range": ["#9972af"]}
           }
     },

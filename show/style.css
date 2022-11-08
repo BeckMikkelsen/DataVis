@@ -34,7 +34,6 @@ h1{
 }
 
 .details {
-    background-color: #a1874b;
     height:650px;
     width: 900px;
     margin-left: 50px;
@@ -50,14 +49,13 @@ h1{
     height: 300px;
     width: 875px;
     margin: auto;
-    background-color: beige;
+
 }
 
 #dataviz2 {
     height: 300px;
     width: 875px;
     margin: auto;
-    background-color: forestgreen;
 }
 
 .inputvalues {
@@ -65,7 +63,6 @@ h1{
     flex-direction: column;
     width: 400px;
     height: 150px;
-    background-color: black;
     justify-content: center;
     margin: auto;
     margin-top: 10px;
@@ -73,8 +70,7 @@ h1{
     border-radius: 25px;
 }
 
-#inputfield {
-    background-color: antiquewhite;
+.inputfield {
     justify-content: center;
     height: 50px;
 
