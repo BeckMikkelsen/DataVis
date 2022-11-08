@@ -138,8 +138,24 @@ function onEachFeature(feature, layer) {
 
 
             locID = selected.feature.properties.location_id
+
+            let spec = {
+                "width": 600,
+                "height": 200,
+                "padding": 5,
+              
+                "data": {"name": "myData", "url": "http://0.0.0.0:8000/data/dataforeachzoneid/weekday_locidindex" + getIndexOfLocID(locID) + ".csv"},
+
+                "mark": "bar",
+                "encoding": {
+                    "x": {"field": "Weekdays", "type": "ordinal",
+                    "title":"Amount each weekday", "sort": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+                },
+                    "y": {"field": "Bike", "type": "quantitative"},
+                },
+            }
             
-            spec.transform[0] = {"filter": "datum.start_zoneID == "+ locID}
+            //spec.transform[0] = {"filter": "datum.start_zoneID == "+ locID}
 
             //console.log(spec.transform)
 

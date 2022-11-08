@@ -10,25 +10,25 @@
 // //   console.log('CLICK', event, item);
 // // });
 
-let spec = {
-    "width": 600,
-    "height": 200,
-    "padding": 5,
+// let spec = {
+//     "width": 600,
+//     "height": 200,
+//     "padding": 5,
   
-    "data": {"name": "myData", "url": "http://0.0.0.0:8000/data/sampledata/bikesample.csv"},
-    "transform": [{"filter": "datum.start_zoneID == locID"}],
-    "mark": "bar",
-    "encoding": {
-        "x": {"timeUnit": "day", "field": "started_at", "type": "ordinal",
-        title:"Amount each weekday"},
-        "y": {"aggregate": "count", "field": "end_zoneID"},
-        "color": {
-            "field": "started_at", "timeUnit": "day",
-            "scale": {"range": ["#9972af"]}
-          }
-    },
-}
-console.log(spec.transform)
+//     "data": {"name": "myData", "url": "http://0.0.0.0:8000/data/sampledata/bikesample.csv"},
+//     "transform": [{"filter": "datum.start_zoneID == locID"}],
+//     "mark": "bar",
+//     "encoding": {
+//         "x": {"timeUnit": "day", "field": "started_at", "type": "ordinal",
+//         title:"Amount each weekday"},
+//         "y": {"aggregate": "count", "field": "end_zoneID"},
+//         "color": {
+//             "field": "started_at", "timeUnit": "day",
+//             "scale": {"range": ["#9972af"]}
+//           }
+//     },
+// }
+// console.log(spec.transform)
 
 // const margin = {top: 30, right: 30, bottom: 70, left: 60},
 //     width = 560 - margin.left - margin.right,
