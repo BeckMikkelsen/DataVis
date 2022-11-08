@@ -138,39 +138,24 @@ function onEachFeature(feature, layer) {
 
 
                 locID = selected.feature.properties.location_id
-
-                let spec = {
-                    "width": 600,
-                    "height": 200,
-                    "padding": 5,
                 
-                    "data": {"name": "myData", "url": "http://0.0.0.0:8000/data/dataforeachzoneid/weekday_locidindex" + getIndexOfLocID(locID) + ".csv"},
-
-                    "mark": "bar",
-                    "encoding": {
-                        "x": {"field": "Weekdays", "type": "ordinal",
-                        "title":"Amount each weekday", "sort": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-                    },
-                        "y": {"field": "Bike", "type": "quantitative"},
-                    },
-                }
-                
+                spec.data = {"name": "myData", "url": "http://0.0.0.0:8000/data/dataforeachzoneid/weekday_locidindex" + getIndexOfLocID(locID) + ".csv"}
 
                 vegaEmbed('#dataviz', spec)
 
-                // vegaEmbed('#dataviz', spec).then(function (res) {
-                //     var locID = vega
-                //     .changeset()
-                //     .insert(4)
-                //     res.view.signal('locID')
-                // })
-                
-
             
-                })
             })
         })
-    }
+    })
+}
+
+
+fetch('../data/geojson/Relevantzones.geojson').then(geojsonFeature => geojsonFeature.json()).then(geojsonFeature => {
+    geojson = L.geoJson(geojsonFeature, {
+        style: style,
+        onEachFeature: onEachFeature
+    }).addTo(map)
+})
 
 function recompileMap(){
     console.log("hallo")
@@ -194,27 +179,9 @@ function recompileMap(){
             let taxiColumn = getSelectedData(selected, taxi_json)
             outgoingBike = bike_json.outgoing[index]
             outgoingTaxi = taxi_json.outgoing[index]
-            
-            
 
             geojson.eachLayer(function(layer){layer.setStyle({fillColor: getBivariateColor2(bikeColumn[count]/outgoingBike, taxiColumn[count]/outgoingTaxi)});count++})
-            highlightFeature(selected);
-
-
-            locID = selected.feature.properties.location_id
-            
-            spec.data = {"name": "myData", "url": "http://0.0.0.0:8000/data/dataforeachzoneid/weekday_locidindex" + getIndexOfLocID(locID) + ".csv"}
-
-            vegaEmbed('#dataviz', spec)
-        
+            highlightFeature(selected);        
         })
-        
     })
 }
-
-fetch('../data/geojson/Relevantzones.geojson').then(geojsonFeature => geojsonFeature.json()).then(geojsonFeature => {
-geojson = L.geoJson(geojsonFeature, {
-    style: style,
-    onEachFeature: onEachFeature
-}).addTo(map)
-})
