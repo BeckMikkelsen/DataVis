@@ -31,8 +31,7 @@ def simplifytaxi(path):
         for j in range(0,7):
             weekdayarr[0,j] = weekdayarr[0,j] + len(df.loc[(df['weekday']== j)])
         df = pd.DataFrame(weekdayarr,columns = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"])
-        print(df)
-        df.to_csv(f"data/dataforeachzoneid/weekday_locidindex{i}.csv",mode='a', index=False)
+        df.to_csv(f"data/dataforeachzoneid/weekday_locidindex{i}.csv",mode='a', index=False, header=False)
         
 
-# simplifytaxi('data/finaldata/taxi07.csv')
+simplifytaxi('data/finaldata/taxi07.csv')
