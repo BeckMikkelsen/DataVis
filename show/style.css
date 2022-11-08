@@ -13,6 +13,7 @@ body{
     width: 1400px;
     justify-content: center;
     margin: auto;
+    margin-top: 0px;
 }
 
 .flex-container {
@@ -57,25 +58,39 @@ h1{
     width: 875px;
     margin: auto;
 }
+.inputbox {
+    font-size: small;
+    background-color: #b5a28c;
+    border-radius: 25px;
+    display: flex;
+    width: 250px;
+}
 
 .inputvalues {
     display: flex;
     flex-direction: column;
-    width: 400px;
-    height: 150px;
     justify-content: center;
     margin: auto;
     margin-top: 10px;
-    padding: 10px;
     border-radius: 25px;
 }
 
 .inputfield {
     justify-content: center;
-    height: 50px;
-
+    padding: 5px;
 }
 
-#recompilebutton{
-    color: black;
+.but{
+    width: 50;
+    display: flex;
+}
+.recompiletools{
+    background-color: blue;
+    display: flex;
+    width: 350px;
+    padding: 35px;
+    margin: auto;
+    border-radius: 25px;
+    margin-top: 10px;
+
 }
