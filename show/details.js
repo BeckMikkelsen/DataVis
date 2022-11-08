@@ -30,6 +30,27 @@
 // }
 // console.log(spec.transform)
 
+let spec = {
+    "width": 600,
+    "height": 200,
+    "padding": 5,
+    "data": {"name": "myData"},
+    
+    "repeat" : {"layer": ["Bike", "Taxi"]},
+    "spec": {
+    "mark": "bar",
+    "encoding": {
+        "x": {"field": "Weekdays", "type": "ordinal",
+        "title":"Weekdays", "sort": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+        "y": {"field": {"repeat":"layer"}, "type": "quantitative", "title":"Amount"},
+        "color": {"datum": {"repeat":"layer"}, "title":"hej"},
+        "xOffset": {"datum": {"repeat":"layer"}},
+    },
+},
+"config": {"mark": {"invalid": null}}
+}
+
 // const margin = {top: 30, right: 30, bottom: 70, left: 60},
 //     width = 560 - margin.left - margin.right,
 //     height = 300 - margin.top - margin.bottom;
