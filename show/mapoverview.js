@@ -58,7 +58,7 @@ function getBivariateColor(bike, taxi) {
 
 function style(feature) {
     return {
-        fillColor: 'pink',
+        fillColor: '#e8e8e8',
         weight: 1,
         opacity: 1,
         color: 'white',
