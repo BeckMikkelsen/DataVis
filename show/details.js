@@ -1,3 +1,5 @@
+
+
 let spec = {
     "width": 600,
     "height": 200,
@@ -18,3 +20,8 @@ let spec = {
 },
 "config": {"mark": {"invalid": null}}
 }
+
+spec.data = {"name": "myData", "url": "http://0.0.0.0:8000/data/dataforeachzoneid/standardview/weekdayallzones.csv"}
+
+
+vegaEmbed('#dataviz', spec)
