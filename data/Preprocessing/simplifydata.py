@@ -23,7 +23,7 @@ def simplifybike(path):
         weekdaysdf.insert(loc=1,column="Bike", value=weekdayarr.T)
         weekdaysdf.to_csv(f"data/dataforeachzoneid/weekday_locidindex{i}.csv", index=False)
 
-simplifybike('data/finaldata/bikedata_07_ID.csv')
+# simplifybike('data/finaldata/bikedata_07_ID.csv')
 
 def simplifytaxi(path):
     taxidata = pd.read_csv(path)
@@ -39,4 +39,33 @@ def simplifytaxi(path):
         weekdaysdf.to_csv(f"data/dataforeachzoneid/weekday_locidindex{i}.csv", index=False)
         
 
-simplifytaxi('data/finaldata/taxi07.csv')
+# simplifytaxi('data/finaldata/taxi07.csv')
+
+def simplifyfullview(bikepath,taxipath):
+    weekdaysdf = pd.DataFrame(data)
+    weekdayarr = np.array([[0,0,0,0,0,0,0]])
+    bikedata =pd.read_csv(bikepath)
+    for i,startzone  in enumerate(relevant_zones):
+        df = bikedata.loc[(bikedata['start_zoneID']== startzone)]
+        weekdays = [(datetime.datetime.strptime(i,'%Y-%m-%d %H:%M:%S')).weekday() for i in df.started_at]
+        df.insert(0, "weekday", weekdays, True)
+        for j in range(0,7):
+            weekdayarr[0,j] = weekdayarr[0,j]+ len(df.loc[(df['weekday']== j)])
+    weekdaysdf.insert(loc=1,column="Bike", value=weekdayarr.T)
+    
+    
+    taxidata = pd.read_csv(taxipath)
+    weekdayarr = np.array([[0,0,0,0,0,0,0]])
+    for i, pickupzone in enumerate(relevant_zones):
+        df = taxidata.loc[(taxidata['PULocationID']== pickupzone)]
+        weekdays = [(datetime.datetime.strptime(i,'%m/%d/%Y %I:%M:%S %p')).weekday() for i in df.tpep_pickup_datetime]
+        df.insert(0, "weekday", weekdays, True)
+        for j in range(0,7):
+            weekdayarr[0,j] = weekdayarr[0,j] + len(df.loc[(df['weekday']== j)])
+    weekdaysdf.insert(loc=1,column="Taxi", value=weekdayarr.T)
+    weekdaysdf.to_csv(f"data/dataforeachzoneid/standardview/weekdayallzones.csv", index=False)
+
+
+simplifyfullview(bikepath='data/finaldata/bikedata_07_ID.csv', taxipath='data/finaldata/taxi07.csv')
+        
+        
