@@ -90,6 +90,7 @@ def get_zone_from_lat_lng(bikedata):
     return (bikestartzonearr,bikeendzonearr)
 
 
+
 (bikestartzonearr,bikeendzonearr) = get_zone_from_lat_lng(bikedata=bikedata)
 bikedata.insert(0, "start_zoneID",bikestartzonearr, True)
 bikedata.insert(1, "end_zoneID",bikeendzonearr, True)

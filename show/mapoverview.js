@@ -144,6 +144,9 @@ function onEachFeature(feature, layer) {
                 vegaEmbed('#dataviz', spec)
 
             
+                spec2.data = {"name": "myData", "url": "http://0.0.0.0:8000/data/duration/mon/bikedata_duration_" + getIndexOfLocID(locID) + ".csv"}
+
+                vegaEmbed('#dataviz2', spec2)
             })
         })
     })
