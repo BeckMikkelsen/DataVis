@@ -32,8 +32,8 @@ let spec = {
 }
 
 let spec2 = {
-    "width": 400,
-    "height": 150,
+    "width": 600,
+    "height": 200,
     "padding": 5,
     "data":{"name": "myData"},
     "transform": [{filter: "datum.duration < 8000"}],
@@ -41,7 +41,6 @@ let spec2 = {
     "encoding": {
         "x": {
             "timeUnit": "hours", "field": "started_at",
-            "axis": {"labelOverlap": "true", "labelSeperation": "5"}
         },
         "y": {
             "field": "duration", "type":"quantitative",
