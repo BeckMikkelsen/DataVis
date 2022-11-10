@@ -4,4 +4,6 @@ helpfromindia
 data/fullbikedata.csv
 data/summerdata
 data/finaldata
-
+data/duration/bikedata_duration_07.csv
+data/sampledata/bikesample.csv
+data/sampledata/taxisample.csv
