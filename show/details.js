@@ -32,25 +32,60 @@ let spec = {
 }
 
 let spec2 = {
-    "width": 600,
-    "height": 200,
-    "padding": 5,
+  
     "data":{"name": "myData"},
-    "transform": [{filter: "datum.duration < 8000"}],
-    "mark": "point",
-    "encoding": {
-        "x": {
-            "timeUnit": "hours", "field": "started_at",
+    "hconcat": [
+        {
+        "title": "Bike",
+        "width": 300,
+        "height": 300,
+        "padding": 5,
+        "transform": [{filter: {"field": "ride_type", "equal": "bike"}},
+                    {filter: "datum.duration < 8000"},
+                    {filter: "datum.duration > -1"},
+    
+            ],
+        "mark": "bar",
+        "encoding": {
+            "x": {
+                "timeUnit":"hours", 
+                "field": "started_at",
+            },
+            "y": {
+                "bin": {"step": 1000},
+                "field": "duration", "type":"quantitative",
+                "sort":"ascending",
+                "scale": {"domain": [0,8000]}
+            },
+            "color": {"aggregate": "count", "scale": {"range": ["yellow", "red"]}},
+            }
         },
-        "y": {
-            "field": "duration", "type":"quantitative",
-            //"axis": {"labelOverlap": "true", "labelSeperation": "5"},
-            "sort":"ascending",
-        },
-        "opacity": {"value": "0.5"}
-    }
-
+        {
+        "title": "Taxi",
+        "width": 300,
+        "height": 300,
+        "padding": 5,
+        "transform": [{filter: {"field": "ride_type", "equal": "taxi"}},
+                    {filter: "datum.duration < 8000"},
+                    {filter: "datum.duration > -1"},
+            ],
+        "mark": "bar",
+        "encoding": {
+            "x": {
+                "timeUnit":"hours", 
+                "field": "started_at",
+            },
+            "y": {
+                "bin": {"step": 1000},
+                "field": "duration", "type":"quantitative",
+                "sort":"ascending",
+                "scale": {"domain": [0,8000]}
+            },
+            "color": {"aggregate": "count", "scale": {"range": ["yellow", "red"]}},
+        }
+    }]
 }
+
 spec.data = {"name": "myData", "url": "http://0.0.0.0:8000/data/dataforeachzoneid/standardview/weekdayallzones.csv"}
 
 
