@@ -42,11 +42,6 @@ let spec = {
 let spec2 = {
   
     "data":{"name": "myData"},
-    "params": [{
-        "name": "Weekday",
-        "select": {"type": "point", "fields": [""]},
-        "bind": {"input": "select", "options": ["All", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
-    }],
     "hconcat": [
         {
         "title": "Bike",

@@ -143,7 +143,7 @@ function onEachFeature(feature, layer) {
 
                 vegaEmbed('#dataviz', spec)
                 
-                spec2.data = {"name": "myData", "url": "http://0.0.0.0:8000/data/duration/mon/bike/bikedata_duration_" + getIndexOfLocID(locID) + ".csv"}
+                spec2.data = {"name": "myData", "url": "http://0.0.0.0:8000/data/duration/all/bike/bikedata_duration_" + getIndexOfLocID(locID) + ".csv"}
 
                 vegaEmbed('#dataviz2', spec2)
             })
@@ -187,3 +187,25 @@ function recompileMap(){
         })
     })
 }
+
+function selectwd(){
+    biketripsPath = '../data/tripdata/biketrips.json'
+    taxitrips_path = '../data/tripdata/taxitrips.json'
+    // Get the
+    fetch(biketripsPath).then(bike_json => bike_json.json()).then(bike_json => {
+        fetch(taxitrips_path).then(taxi_json => taxi_json.json()).then(taxi_json => {
+            
+            locID = selected.feature.properties.location_id
+
+            index = getIndexOfLocID(locID)
+
+
+            let ele = document.getElementById("weekdays");
+            let wd= ele.value;
+            spec2.data = {"name": "myData", "url": "http://0.0.0.0:8000/data/duration/"+wd+"/bike/bikedata_duration_" + getIndexOfLocID(locID) + ".csv"}
+
+            vegaEmbed('#dataviz2', spec2)
+        })
+    })
+}
+
