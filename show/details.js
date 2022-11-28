@@ -1,8 +1,8 @@
 
 
 let spec = {
-    "width": 600,
-    "height": 200,
+    "width": 700,
+    "height": 300,
     "padding": 5,
     "data": {"name": "myData"},
     
@@ -21,11 +21,19 @@ let spec = {
             "tickWidth":"1"
         }
 
+
     },
         "y": {"field": {"repeat":"layer"}, "type": "quantitative", "title":"Amount", "axis":{"titleFontSize": "13"}},
         "color": {"datum": {"repeat":"layer"}, "title":"Transportation type","scale": {"range":["#8b689f","#b6a352"]}},
         "xOffset": {"datum": {"repeat":"layer"}},
-        
+    },
+    "stroke": {
+        "condition": {
+          "param": "highlight",
+          "empty": false,
+          "value": "black"
+        },
+        "value": null,    
     },
 },
 "config": {"mark": {"invalid": null}}
@@ -34,6 +42,11 @@ let spec = {
 let spec2 = {
   
     "data":{"name": "myData"},
+    "params": [{
+        "name": "Weekday",
+        "select": {"type": "point", "fields": [""]},
+        "bind": {"input": "select", "options": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
+    }],
     "hconcat": [
         {
         "title": "Bike",
@@ -41,7 +54,7 @@ let spec2 = {
         "height": 300,
         "padding": 5,
         "transform": [{filter: {"field": "ride_type", "equal": "bike"}},
-                    {filter: "datum.duration < 8000"},
+                    {filter: "datum.duration < 10000"},
                     {filter: "datum.duration > -1"},
     
             ],
@@ -55,10 +68,11 @@ let spec2 = {
                 "bin": {"step": 1000},
                 "field": "duration", "type":"quantitative",
                 "sort":"ascending",
-                "scale": {"domain": [0,8000]}
+                "scale": {"domain": [0,10000]}
             },
-            "color": {"aggregate": "count", "scale": {"range": ["yellow", "red"]}},
-            }
+            "color": {"aggregate": "count", "scale": {"range": ["#e8e8e8", "#804d36"]}},
+            
+        }
         },
         {
         "title": "Taxi",
@@ -66,7 +80,7 @@ let spec2 = {
         "height": 300,
         "padding": 5,
         "transform": [{filter: {"field": "ride_type", "equal": "taxi"}},
-                    {filter: "datum.duration < 8000"},
+                    {filter: "datum.duration < 10000"},
                     {filter: "datum.duration > -1"},
             ],
         "mark": "bar",
@@ -79,7 +93,7 @@ let spec2 = {
                 "bin": {"step": 1000},
                 "field": "duration", "type":"quantitative",
                 "sort":"ascending",
-                "scale": {"domain": [0,8000]}
+                "scale": {"domain": [0,10000]}
             },
             "color": {"aggregate": "count", "scale": {"range": ["yellow", "red"]}},
         }
