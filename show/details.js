@@ -45,7 +45,7 @@ let spec2 = {
     "params": [{
         "name": "Weekday",
         "select": {"type": "point", "fields": [""]},
-        "bind": {"input": "select", "options": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
+        "bind": {"input": "select", "options": ["All", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
     }],
     "hconcat": [
         {

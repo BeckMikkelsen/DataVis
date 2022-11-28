@@ -36,12 +36,12 @@ def bike_rides_monday():
     bikedata = pd.read_csv('data/finaldata/bikedata_07_duration.csv', usecols=["duration", "start_zoneID", "started_at"])
     for i in range(0,len(bikezones)):
         df = bikedata.loc[bikedata["start_zoneID"] == bikezones[i]]
-        weekdays = [(datetime.strptime(i,'%Y-%m-%d %H:%M:%S')).weekday() for i in df.started_at]
-        df.insert(0, "weekday", weekdays, True)
-        df = df.loc[df['weekday'] == 0]
+        #weekdays = [(datetime.strptime(i,'%Y-%m-%d %H:%M:%S')).weekday() for i in df.started_at]
+        #df.insert(0, "weekday", weekdays, True)
+        #df = df.loc[df['weekday'] == 0]
         df.insert(0, "ride_type", "bike", True)
         #df['started_at'] = [(i.split(' '))[1] for i in df.started_at]
-        df.to_csv(f'data/duration/mon/bike/bikedata_duration_{i}.csv', index=False)
+        df.to_csv(f'data/duration/all/bike/bikedata_duration_{i}.csv', index=False)
 
 # Make one data set for each zone having only monday
 def taxi_rides_monday():
@@ -50,13 +50,13 @@ def taxi_rides_monday():
         df = taxidata.loc[taxidata["PULocationID"] == bikezones[i]]
         col_titles = ["duration", "PULocationID", "tpep_pickup_datetime"]
         df = df.reindex(columns=col_titles)
-        weekdays = [(datetime.strptime(i,'%m/%d/%Y %I:%M:%S %p')).weekday() for i in df.tpep_pickup_datetime]
-        df.insert(0, "weekday", weekdays, True)
-        df = df.loc[df['weekday'] == 0]
+        #weekdays = [(datetime.strptime(i,'%m/%d/%Y %I:%M:%S %p')).weekday() for i in df.tpep_pickup_datetime]
+        #df.insert(0, "weekday", weekdays, True)
+        #df = df.loc[df['weekday'] == 0]
         df.insert(0, "ride_type", "taxi", True)
        
         #df['started_at'] = [(i.split(' '))[1] for i in df.started_at]
-        df.to_csv(f'data/duration/mon/bike/bikedata_duration_{i}.csv', mode='a', header=False,index=False)
+        df.to_csv(f'data/duration/all/bike/bikedata_duration_{i}.csv', mode='a', header=False,index=False)
 
 bike_rides_monday()
 taxi_rides_monday()
