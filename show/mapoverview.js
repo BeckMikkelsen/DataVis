@@ -132,18 +132,26 @@ function onEachFeature(feature, layer) {
                 let taxiColumn = getSelectedData(selected, taxi_json)
                 outgoingBike = bike_json.outgoing[index]
                 outgoingTaxi = taxi_json.outgoing[index]
-                
-                
+                console.log(index)
+                console.log("outgoing taxi is "+ outgoingTaxi)
+
+                let sum = 0
 
                 geojson.eachLayer(function(layer){
                     layer.setStyle({
                         fillColor: getBivariateColor2(
+                            
                             bikeColumn[count]/outgoingBike, taxiColumn[count]/outgoingTaxi
                         )
                     });
-
-                    count++;
+                    // console.log(taxiColumn[count])
+                    sum = sum + taxiColumn[count]
+                    
+                    if (count <117){
+                        count++;
+                    }
                 })
+                console.log(sum)
                 highlightFeature(selected);
 
                 
