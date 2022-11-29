@@ -35,7 +35,7 @@ function getBivariateColor2(bike, taxi) {
             (bike > low && taxi > middle)    ? bivariateColorArray[6] :
             taxi > middle                    ? bivariateColorArray[2] :
             (bike > middle && taxi > low)    ? bivariateColorArray[9] :
-            (bike < low && taxi < low)       ? bivariateColorArray[5]:
+            (bike > low && taxi > low)       ? bivariateColorArray[5]:
             bike > middle                    ? bivariateColorArray[8] :
             taxi > low                       ? bivariateColorArray[1] :
             bike > low                       ? bivariateColorArray[4] : 
