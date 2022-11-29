@@ -24,7 +24,10 @@ body{
 }
 
 h1{
-    text-align: center;}
+    text-align: center;
+    font-size: x-large;
+    margin-bottom: 30px;
+}
 
 #map {
     display: flex;
@@ -138,8 +141,12 @@ h1{
 }
 
 .colors {
+    box-sizing: border-box;
     width: 25px;
     height: 25px;
+}
+.colors.selected {
+    border: 2px solid black;
 }
 
 .verticalcolortext{

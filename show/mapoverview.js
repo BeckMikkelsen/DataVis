@@ -19,8 +19,8 @@ let relevantZones = [4, 7, 8, 12, 13, 17, 24, 25, 33, 34, 36, 37, 40, 41, 42, 43
 let high = document.getElementById("inputhigh").value;
 let middle =document.getElementById("inputmiddle").value; 
 let low = document.getElementById("inputlow").value;
-let bivariateColorArray =["#d3d3d3", "#cac4a8", "#c0b37e", "#b6a352", "#bbafc2", "#b2a29b", "#aa9473", "#a1874b", "#a38bb1", "#9c818d", "#947669", "#8c6b44", "#8b689f", "#85607f", "#7f585f", "#78503e"]
-console.log(high)
+let bivariateColorArray2 =["#d3d3d3", "#cac4a8", "#c0b37e", "#b6a352", "#bbafc2", "#b2a29b", "#aa9473", "#a1874b", "#a38bb1", "#9c818d", "#947669", "#8c6b44", "#8b689f", "#85607f", "#7f585f", "#78503e"]
+let bivariateColorArray = ["rgb(211, 211, 211)", "rgb(202, 196, 168)", "rgb(192, 179, 126)", "rgb(182, 163, 82)", "rgb(187, 175, 194)", "rgb(178, 162, 155)", "rgb(170, 148, 115)", "rgb(161, 135, 75)", "rgb(163, 139, 177)", "rgb(156, 129, 141)", "rgb(148, 118, 105)", "rgb(140, 107, 68)", "rgb(139, 104, 159)", "rgb(133, 96, 127)", "rgb(127, 88, 95)", "rgb(120, 80, 62)"]
 
 // TODO: create bivariate color scale
 function getBivariateColor2(bike, taxi) {
@@ -126,7 +126,7 @@ function onEachFeature(feature, layer) {
 
                 highlightFeature(selected);
                 
-                document.getElementById("heading").innerHTML = "You have selected " + zoneName.zone[index] + " with zone id: " + locID;
+                document.getElementById("heading").innerHTML = "Showing data for " + zoneName.zone[index] + " with zone id: " + locID;
                 let count =0
                 let bikeColumn = getSelectedData(selected, bike_json)
                 let taxiColumn = getSelectedData(selected, taxi_json)
@@ -135,8 +135,18 @@ function onEachFeature(feature, layer) {
                 
                 
 
-                geojson.eachLayer(function(layer){layer.setStyle({fillColor: getBivariateColor2(bikeColumn[count]/outgoingBike, taxiColumn[count]/outgoingTaxi)});count++})
+                geojson.eachLayer(function(layer){
+                    layer.setStyle({
+                        fillColor: getBivariateColor2(
+                            bikeColumn[count]/outgoingBike, taxiColumn[count]/outgoingTaxi
+                        )
+                    });
+
+                    count++;
+                })
                 highlightFeature(selected);
+
+                
 
 
                 locID = selected.feature.properties.location_id
@@ -149,8 +159,28 @@ function onEachFeature(feature, layer) {
 
                 vegaEmbed('#dataviz2', spec2)
             })
+            layer.on('mouseover',function(e) {
+                clearAll()
+                highlightColorMap(e)
+                
+            })
         })
     })
+}
+
+function clearAll(){
+    Array.from(document.querySelectorAll(".colormap .colors")).forEach(color=> {
+        color.classList.remove("selected");
+        
+    })
+}
+function highlightColorMap(e) {
+    const targetColor = e.target._path.attributes.fill.value
+    Array.from(document.querySelectorAll(".colormap .colors")).forEach(color => {
+        if (color.style["background-color"] + "" === targetColor + "") {
+            color.classList.add("selected");
+        }
+    });
 }
 
 
@@ -162,7 +192,6 @@ fetch('../data/geojson/Relevantzones.geojson').then(geojsonFeature => geojsonFea
 })
 
 function recompileMap(){
-    console.log("hallo")
     biketripsPath = '../data/tripdata/biketrips.json'
     taxitrips_path = '../data/tripdata/taxitrips.json'
     // Get the
@@ -189,6 +218,7 @@ function recompileMap(){
         })
     })
 }
+
 
 function selectwd(){
     biketripsPath = '../data/tripdata/biketrips.json'
