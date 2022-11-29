@@ -42,57 +42,66 @@ let spec = {
 let spec2 = {
   
     "data":{"name": "myData"},
-    "hconcat": [
-        {
-        "title": "Bike",
-        "width": 300,
+    // "hconcat": [
+    //     {
+        "title": "Mean travel time",
+        "width": 700,
         "height": 300,
         "padding": 5,
-        "transform": [{filter: {"field": "ride_type", "equal": "bike"}},
-                    {filter: "datum.duration < 10000"},
-                    {filter: "datum.duration > -1"},
-    
-            ],
-        "mark": "bar",
+        //"transform": [{filter: {"field": "ride_type", "equal": "bike"}}],
+        "mark": "line",
         "encoding": {
             "x": {
-                "timeUnit":"hours", 
-                "field": "started_at",
+                "field": "hour",
+                "type": "quantitative",
+                
+                "axis":{
+                    "titleFontSize": "13",
+                    "labelAngle":"0", 
+                    "labelFontSize": "11", 
+                    "labelPadding":"5", 
+                    "tickSize":"5", 
+                    "tickWidth":"1"
+                }
             },
             "y": {
-                "bin": {"step": 1000},
-                "field": "duration", "type":"quantitative",
-                "sort":"ascending",
-                "scale": {"domain": [0,10000]}
+                "field": "mean", "type":"quantitative",
             },
-            "color": {"aggregate": "count", "scale": {"range": ["#e8e8e8", "#804d36"]}},
+            "color": {"field": "ride_type", "type": "nominal"}
+            //"color": {"aggregate": "count", "scale": {"range": ["#e8e8e8", "#804d36"]}},
             
         }
-        },
-        {
-        "title": "Taxi",
-        "width": 300,
-        "height": 300,
-        "padding": 5,
-        "transform": [{filter: {"field": "ride_type", "equal": "taxi"}},
-                    {filter: "datum.duration < 10000"},
-                    {filter: "datum.duration > -1"},
-            ],
-        "mark": "bar",
-        "encoding": {
-            "x": {
-                "timeUnit":"hours", 
-                "field": "started_at",
-            },
-            "y": {
-                "bin": {"step": 1000},
-                "field": "duration", "type":"quantitative",
-                "sort":"ascending",
-                "scale": {"domain": [0,10000]}
-            },
-            "color": {"aggregate": "count", "scale": {"range": ["yellow", "red"]}},
-        }
-    }]
+        //},
+        // {
+        // "title": "Taxi",
+        // "width": 300,
+        // "height": 300,
+        // "padding": 5,
+        // "mark": "line",
+        // "transform": [{filter: {"field": "ride_type", "equal": "taxi"}}],
+        // "encoding": {
+        //     "x": {
+        //         "field": "hour",
+        //         "type": "quantitative",
+        //         //"sort":"ascending",
+        //         "axis":{
+        //             "titleFontSize": "13",
+        //             "labelAngle":"0", 
+        //             "labelFontSize": "11", 
+        //             "labelPadding":"5", 
+        //             "tickSize":"5", 
+        //             "tickWidth":"1"
+        //         }
+        //     },
+        //     "y": {
+        //         "field": "mean", "type":"quantitative",
+        //         "sort":"ascending",
+        //         //"scale":{"domain":[0,5000]}
+        //     },
+        //     //"color": {"aggregate": "count", "scale": {"range": ["#e8e8e8", "#804d36"]}},
+            
+        // }
+    //}]
 }
 
 spec.data = {"name": "myData", "url": "http://0.0.0.0:8000/data/dataforeachzoneid/standardview/weekdayallzones.csv"}

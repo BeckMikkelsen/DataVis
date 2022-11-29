@@ -39,9 +39,26 @@ def bike_rides_monday():
         #weekdays = [(datetime.strptime(i,'%Y-%m-%d %H:%M:%S')).weekday() for i in df.started_at]
         #df.insert(0, "weekday", weekdays, True)
         #df = df.loc[df['weekday'] == 0]
-        df.insert(0, "ride_type", "bike", True)
+        output = pd.DataFrame(columns=["hour", "mean"])
+        mean_arr=[]
+        hour_arr = []
+        for j in range(0,24):
+            df_copy = df.copy()
+            hours = [(datetime.strptime(i,'%Y-%m-%d %H:%M:%S')).hour for i in df_copy.started_at]
+            df_copy.insert(0, "hours", hours, True)
+            #print(df_copy)
+            df_copy = df_copy.loc[df_copy['hours'] == j]
+            mean = (df_copy["duration"].mean())
+            mean_arr.append(mean)
+            hour_arr.append(j)
+        #output = output.rename({'0': 'hour', '1': 'mean'},axis=1)
+        output['hour'] = hour_arr
+        output['mean'] = mean_arr
+        output.insert(0, "ride_type", "bike", True)
+        print(i)
+        output.to_csv(f'data/duration/all/bike/bikedata_duration_{i}.csv', index=False)
+
         #df['started_at'] = [(i.split(' '))[1] for i in df.started_at]
-        df.to_csv(f'data/duration/all/bike/bikedata_duration_{i}.csv', index=False)
 
 # Make one data set for each zone having only monday
 def taxi_rides_monday():
@@ -53,10 +70,25 @@ def taxi_rides_monday():
         #weekdays = [(datetime.strptime(i,'%m/%d/%Y %I:%M:%S %p')).weekday() for i in df.tpep_pickup_datetime]
         #df.insert(0, "weekday", weekdays, True)
         #df = df.loc[df['weekday'] == 0]
-        df.insert(0, "ride_type", "taxi", True)
-       
+        output = pd.DataFrame(columns=["hour", "mean"])
+        mean_arr=[]
+        hour_arr = []
+        for j in range(0,24):
+            df_copy = df.copy()
+            hours = [(datetime.strptime(i,'%m/%d/%Y %I:%M:%S %p')).hour for i in df_copy.tpep_pickup_datetime]
+            df_copy.insert(0, "hours", hours, True)
+            #print(df_copy)
+            df_copy = df_copy.loc[df_copy['hours'] == j]
+            mean = (df_copy["duration"].mean())
+            mean_arr.append(mean)
+            hour_arr.append(j)
+        #output = output.rename({'0': 'hour', '1': 'mean'},axis=1)
+        output['hour'] = hour_arr
+        output['mean'] = mean_arr
+        output.insert(0, "ride_type", "taxi", True)
         #df['started_at'] = [(i.split(' '))[1] for i in df.started_at]
-        df.to_csv(f'data/duration/all/bike/bikedata_duration_{i}.csv', mode='a', header=False,index=False)
+        output.to_csv(f'data/duration/all/bike/bikedata_duration_{i}.csv', mode='a', header=False,index=False)
+        
 
 bike_rides_monday()
 taxi_rides_monday()
