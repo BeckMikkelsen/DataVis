@@ -18,24 +18,24 @@ def count_instances_of_trip_taxi(path ,out):
     taxi_trip_amount = np.zeros((len(relevant_zones),len(relevant_zones)))
     outgoing_arr =[]
 
-    for taxidata_chunk in pd.read_csv(path,chunksize=chunksize):
-        for i,pickup  in enumerate(relevant_zones):
-            outgoing = 0
-            for j,dropoff in enumerate(relevant_zones):
-                count = 0
-                count = count + len(taxidata_chunk.loc[(taxidata_chunk['PULocationID']== pickup) & (taxidata_chunk['DOLocationID'] == dropoff)])
-                taxi_trip_amount[i,j] += count
-                outgoing = outgoing + count
-            outgoing_arr.append(outgoing)
-    outgoing_df = pd.DataFrame(outgoing_arr)
-    taxitrip_df = pd.DataFrame(taxi_trip_amount)
-    taxitrip_df.insert((len(relevant_zones)),'outgoing',outgoing_df,True)
+    taxidata_chunk = pd.read_csv(path)
+    for i,pickup  in enumerate(relevant_zones):
+        outgoing = 0
+        for j,dropoff in enumerate(relevant_zones):
+            count = 0
+            count = count + len(taxidata_chunk.loc[(taxidata_chunk['PULocationID']== pickup) & (taxidata_chunk['DOLocationID'] == dropoff)])
+            taxi_trip_amount[i,j] += count
+            outgoing = outgoing + count
+        outgoing_arr.append(outgoing)
+        outgoing_df = pd.DataFrame(outgoing_arr)
+        taxitrip_df = pd.DataFrame(taxi_trip_amount)
+        taxitrip_df.insert((len(relevant_zones)),'outgoing',outgoing_df,True)
     json_taxitrip = taxitrip_df.to_json()
     with open(out, "w") as outfile:
         outfile.write(json_taxitrip)
 
 
-# count_instances_of_trip_taxi(path ='data/finaldata/taxi07.csv', out ='data/tripdata/taxitrips.json')
+#count_instances_of_trip_taxi(path ='data/finaldata/taxi07.csv', out ='data/tripdata/taxitrips.json')
 
 
 def count_instances_of_trip_bike(path,out):
@@ -43,23 +43,23 @@ def count_instances_of_trip_bike(path,out):
     bike_trip_amount = np.zeros((len(relevant_zones),len(relevant_zones)))
     outgoing_arr = []
     
-    for bikedata_chunk in pd.read_csv(path, chunksize=chunksize):
-        for i,startzone  in enumerate(relevant_zones):
-            outgoing = 0
-            for j,endzone in enumerate(relevant_zones):
-                count = 0
-                count = count + len(bikedata_chunk.loc[(bikedata_chunk['start_zoneID']== startzone) & (bikedata_chunk['end_zoneID'] == endzone)])
-                bike_trip_amount[i,j] += count
-                outgoing = outgoing + count
-            outgoing_arr.append(outgoing)
-    outgoing_df = pd.DataFrame(outgoing_arr)
-    biketrip_df = pd.DataFrame(bike_trip_amount)
-    biketrip_df.insert(len(relevant_zones),'outgoing', outgoing_df,True)
+    bikedata_chunk = pd.read_csv(path)
+    for i,startzone  in enumerate(relevant_zones):
+        outgoing = 0
+        for j,endzone in enumerate(relevant_zones):
+            count = 0
+            count = count + len(bikedata_chunk.loc[(bikedata_chunk['start_zoneID']== startzone) & (bikedata_chunk['end_zoneID'] == endzone)])
+            bike_trip_amount[i,j] += count
+            outgoing = outgoing + count
+        outgoing_arr.append(outgoing)
+        outgoing_df = pd.DataFrame(outgoing_arr)
+        biketrip_df = pd.DataFrame(bike_trip_amount)
+        biketrip_df.insert(len(relevant_zones),'outgoing', outgoing_df,True)
     json_biketrip = biketrip_df.to_json()
     with open(out, "w") as outfile:
         outfile.write(json_biketrip)
 
-# count_instances_of_trip_bike(path = 'data/finaldata/bikedata_07_ID.csv', out ='data/tripdata/biketrips.json')
+count_instances_of_trip_bike(path = 'data/finaldata/bikedata_07_ID.csv', out ='data/tripdata/biketrips.json')
 
 def count_instances_sample():
     #Count taxi
