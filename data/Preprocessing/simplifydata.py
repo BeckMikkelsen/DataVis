@@ -66,6 +66,14 @@ def simplifyfullview(bikepath,taxipath):
     weekdaysdf.to_csv(f"data/dataforeachzoneid/standardview/weekdayallzones.csv", index=False)
 
 
-simplifyfullview(bikepath='data/finaldata/bikedata_07_ID.csv', taxipath='data/finaldata/taxi07.csv')
+# simplifyfullview(bikepath='data/finaldata/bikedata_07_ID.csv', taxipath='data/finaldata/taxi07.csv')
+
+def zoneid_with_name():
+    df = pd.read_csv("data/zones/relevant_zones/relevant_zones.csv", usecols=['zone','LocationID'])
+    print(df)
+    df_json = df.to_json()
+    with open('data/zones/relevant_zones/idandname.json', "w") as outfile:
+        outfile.write(df_json)
+
         
-        
+# zoneid_with_name()        
