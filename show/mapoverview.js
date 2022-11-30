@@ -21,6 +21,9 @@ let middle =document.getElementById("inputmiddle").value;
 let low = document.getElementById("inputlow").value;
 let bivariateColorArray2 =["#d3d3d3", "#cac4a8", "#c0b37e", "#b6a352", "#bbafc2", "#b2a29b", "#aa9473", "#a1874b", "#a38bb1", "#9c818d", "#947669", "#8c6b44", "#8b689f", "#85607f", "#7f585f", "#78503e"]
 let bivariateColorArray = ["rgb(211, 211, 211)", "rgb(202, 196, 168)", "rgb(192, 179, 126)", "rgb(182, 163, 82)", "rgb(187, 175, 194)", "rgb(178, 162, 155)", "rgb(170, 148, 115)", "rgb(161, 135, 75)", "rgb(163, 139, 177)", "rgb(156, 129, 141)", "rgb(148, 118, 105)", "rgb(140, 107, 68)", "rgb(139, 104, 159)", "rgb(133, 96, 127)", "rgb(127, 88, 95)", "rgb(120, 80, 62)"]
+let bivariateCArr3Var = ["#d3d3d3", "#c5bb93", "#b6a352", "#af9cb9", "#a38b81", "#977948", "#8b689f", "#825c6f", "#78503e"]
+let bivariateCArr3VarRGB = ["rgb(211, 211, 211)", "rgb(197, 187, 147)", "rgb(182, 163, 82)", "rgb(175, 156, 185)", "rgb(163, 139, 129)", "rgb(151, 121, 72)", "rgb(139, 104, 159)", "rgb(130, 92, 111)", "rgb(120, 80, 62)"]
+
 
 // TODO: create bivariate color scale
 function getBivariateColor2(bike, taxi) {
@@ -45,15 +48,15 @@ function getBivariateColor2(bike, taxi) {
 
 // TODO: create bivariate color scale
 function getBivariateColor(bike, taxi) {
-    return  bike > high && taxi > high       ? '#804d36' :
-            (bike > middle && taxi > high)   ? '#af8e53' :
-            (bike > low && taxi > high)      ? '#c8b35a' :
-            (bike > high && taxi > middle)   ? '#976b82' :
-            (bike > high && taxi > low)      ? '#9972af' :
-            (bike > middle && taxi > middle) ? '#af8e53' :
-            (bike > low && taxi > middle)    ? '#e4d9ac' :
-            (bike > middle && taxi > low)    ? '#cbb8d7' :
-            '#e8e8e8' // if none of the above: (bike > low && taxi > low) 
+    return  bike > high && taxi > high       ? bivariateCArr3VarRGB[8] :
+            (bike > low && taxi > high)      ? bivariateCArr3VarRGB[5] :
+            taxi > high                      ? bivariateCArr3VarRGB[2] : 
+            (bike > high && taxi > low)      ? bivariateCArr3VarRGB[7] :
+            bike> high                       ? bivariateCArr3VarRGB[6] : 
+            (bike > low && taxi > low)       ? bivariateCArr3VarRGB[4] :
+            (taxi > low)                     ? bivariateCArr3VarRGB[1] :
+            (bike > low)                     ? bivariateCArr3VarRGB[3] :
+            bivariateCArr3VarRGB[0] // if none of the above: (bike > low && taxi > low) 
 }
 
 function style(feature) {
