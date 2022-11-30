@@ -52,6 +52,7 @@ let spec2 = {
         "mark": "line",
         "encoding": {
             "x": {
+                "title":"Hour",
                 "field": "hour",
                 "type": "quantitative",
                 
@@ -62,12 +63,16 @@ let spec2 = {
                     "labelPadding":"5", 
                     "tickSize":"5", 
                     "tickWidth":"1"
-                }
+                },
+                "scale": {
+                    "domain": [0, 23]
+                  }
             },
             "y": {
+                "title": "Duration (sec)",
                 "field": "mean", "type":"quantitative",
             },
-            "color": {"field": "ride_type", "type": "nominal"}
+            "color": {"title": "Transportation type","field": "ride_type","type": "nominal", "scale": {"range":["#8b689f","#b6a352"]}}
             //"color": {"aggregate": "count", "scale": {"range": ["#e8e8e8", "#804d36"]}},
             
         }
